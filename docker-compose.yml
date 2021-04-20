@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+    nginx:
+        image: nginx
+        volumes:
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - .:/app
+        ports:
+            - "8888:80"
+        links:
+            - app
+    app:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes:
+            - .:/app
+        env_file: .env.test
+        extra_hosts:
+            - 'host.docker.internal:${DOCKER_HOST_IP:-172.17.0.1}'
+
+    mysql:
+        image: mysql:5.7
+        #restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: test
+
+    front:
+        build:
+            context: .
+            dockerfile: docker/nuxt/Dockerfile
+        ports:
+            - "3000:3000"
+        environment:
+            HOST: 0.0.0.0
+            PORT: 3000
