@@ -1,8 +1,8 @@
-#Тестовое задание для FXBO 
+# Тестовое задание для FXBO 
 
 Условия описаны в файле REQUIREMENTS.md
 
-##Фронтовая часть реализована на **Nuxt** как отдельный сервис.
+## Фронтовая часть реализована на **Nuxt** как отдельный сервис.
 
 Весь фронт лежит в папке `/front`
 
@@ -15,7 +15,7 @@
 
 Данные получаем c Backend сервиса через API
 
-##Backend реализован на Symfony 5.
+## Backend реализован на Symfony 5.
 
 * Источники данных реализованы с поддержкой интерфейса для возможности реализации новых источников
 * Работа с источниками данных вынесена в сервис `RateImportService`
@@ -23,21 +23,21 @@
 * Написаны тесты на основной функционал
 * API реализовано через `api-platform`
 
-##Docker
+## Docker
 
 Для локальной разработки и проверки подготовлены docker контейнеры и docker-compose
 
 Контейнеры и настройки расположены в папке `/docker`
 
-##Установка зависимостей (composer и yarn)
+## Установка зависимостей (composer и yarn)
 > docker run --rm -t --volume ${PWD}:/app composer install --ignore-platform-reqs
 
 
-##Запуск
+## Запуск
 > docker-compose up -d --force-recreate --remove-orphans
 
 
-###Инициализация приложения
+### Инициализация приложения
 > docker-compose exec -T app ./bin/console doctrine:database:create --if-not-exists
 > 
 > docker-compose exec -T app ./bin/console doctrine:migrations:migrate -n --allow-no-migration
@@ -45,16 +45,16 @@
 > docker-compose exec -T app ./bin/console doctrine:schema:validate --skip-sync
 
 
-###Импорт курсов с площадок
+### Импорт курсов с площадок
 > docker-compose exec -T app ./bin/console rate:import
 
-###Запуск тестов
+### Запуск тестов
 > docker-compose exec -T app ./bin/console doctrine:fixtures:load --no-interaction
 > 
 > docker-compose exec -T app ./vendor/bin/phpunit
 
 
-###Адреса сервисов
+### Адреса сервисов
 
 http://localhost:8888/api - API сервер
 
