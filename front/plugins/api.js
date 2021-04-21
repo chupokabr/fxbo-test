@@ -1,27 +1,33 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8888/api';
+let API_URL = 'http://localhost:8888/api';
 
-axios.headers = {
+//hot fix for docker
+if (process.server) {
+    API_URL = 'http://nginx/api'
+}
+
+const headers = {
     'accept': 'application/json'
 }
 
-export default class API {
+class API {
     getRateList() {
-        return axios.get(`${API_URL}/rates`);
+        return axios.get(`${API_URL}/rates`, {headers: headers});
     }
 
     getRate(id) {
-        return axios.get(`${API_URL}/rates/${id}`);
+        return axios.get(`${API_URL}/rates/${id}`, {headers: headers});
     }
 
     updateRate(rate) {
-        return axios.put(`${API_URL}/rates/${id}`, rate);
+        return axios.put(`${API_URL}/rates/${rate.id}`, rate, {headers: headers});
     }
 
     deleteRate(id) {
-        return axios.delete(`${API_URL}/rates/${id}`);
+        return axios.delete(`${API_URL}/rates/${id}`, {headers: headers});
     }
 }
 
+export default new API()
 

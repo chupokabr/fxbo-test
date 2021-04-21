@@ -96,7 +96,7 @@
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <template v-if="selectedRate === rate">
                       <button
-                          @click="handleUpdate(rate)"
+                          @click="handleUpdate()"
                           class="mr-5 py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                         Save
                       </button>
@@ -168,7 +168,7 @@ export default {
     loadRates() {
       return API.getRateList().then(response => this.rates = response.data)
     },
-    handleUpdate(rate) {
+    handleUpdate() {
       let rateData = this.selectedRateData
       this.selectedRate = null
       if (rateData) {
